@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "a486c5ce-134c-422d-88d7-9af63bafb231",
+		"name": "appointment-app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "380285",
+		"_collection_link": "https://crimson-rocket-705578.postman.co/workspace/9446bd9b-e5ce-4026-9c12-2a3267ee15f2/collection/380285-a486c5ce-134c-422d-88d7-9af63bafb231?action=share&source=collection_link&creator=380285"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"admin@example.com\", \"password\": \"password123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "participants - create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NDc2MDgwNjksImV4cCI6MTc0NzYxMTY2OSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.OduC6QALkV_X0CxtVH8qXNz8t9kR10fHtuASVd6TpeUX2JP6koZc5K0Xyi2Et-3gaNRsgzlXcrf0FTSm666LLz0U3gFyOuORCXskvq7ye97RQF4jxsIjaHdaxwh7tBi8N6UtdUqGc3vn34oBXIcYA8pYJFkgVp4e4-yM51A23sVc4YCrGhnJTc-yBa7pabtjSzvmXy1Yqg8xXk8a8oAIkZkY1LKysiAfEG9VqaLY4848FQEZbWCPAX1qHiU4_xRzbnEbJ6keusrl5NqZpJ5h5XFPzNRIB_u2iSZ8Mxi2OlmcrKaLJOebtYjBGcDkhMTFTkJbDSokKYtg_EMjW1mWVA"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\": \"John Doe\", \"email\": \"john@example.com\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/participants",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"participants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "participants - list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NDc2MDgwNjksImV4cCI6MTc0NzYxMTY2OSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.OduC6QALkV_X0CxtVH8qXNz8t9kR10fHtuASVd6TpeUX2JP6koZc5K0Xyi2Et-3gaNRsgzlXcrf0FTSm666LLz0U3gFyOuORCXskvq7ye97RQF4jxsIjaHdaxwh7tBi8N6UtdUqGc3vn34oBXIcYA8pYJFkgVp4e4-yM51A23sVc4YCrGhnJTc-yBa7pabtjSzvmXy1Yqg8xXk8a8oAIkZkY1LKysiAfEG9VqaLY4848FQEZbWCPAX1qHiU4_xRzbnEbJ6keusrl5NqZpJ5h5XFPzNRIB_u2iSZ8Mxi2OlmcrKaLJOebtYjBGcDkhMTFTkJbDSokKYtg_EMjW1mWVA"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/participants",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"participants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "appointments- list",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NDc2MTE3MjAsImV4cCI6MTc0NzYxNTMyMCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.TQkHIJe_H9LJt72NKjckxMeb2PESIK6IOGmV3MQuy83oOwwQ8YZ4_VbiNMnRpajvRYZDoyLY8tNF09QsVZ2PoLOSaoXb2eqFjsIq0bpOXAi3lzjXzfOtpMnc52ZAGRg5cv19F-aOIiKQw2Cj8f7IAX7uGo62TW_A2kbaX6XwxNyg5eYkY23glEe7CblrgKtKXPdFOAApABeHwaQzgpY8QX4k2IoyD1tZ_Mp2nruzA4sStaJzpxLbFeP35lhj1V8fGArs_Duqddwaffguc0Vxzr1nZRx6QAnILR8YfUkT1h-tqjGz_mxUzH-PfN-4L6phxIEDMMIR_1lJ9ZAH_sGxjw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NDc2MDgwNjksImV4cCI6MTc0NzYxMTY2OSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.OduC6QALkV_X0CxtVH8qXNz8t9kR10fHtuASVd6TpeUX2JP6koZc5K0Xyi2Et-3gaNRsgzlXcrf0FTSm666LLz0U3gFyOuORCXskvq7ye97RQF4jxsIjaHdaxwh7tBi8N6UtdUqGc3vn34oBXIcYA8pYJFkgVp4e4-yM51A23sVc4YCrGhnJTc-yBa7pabtjSzvmXy1Yqg8xXk8a8oAIkZkY1LKysiAfEG9VqaLY4848FQEZbWCPAX1qHiU4_xRzbnEbJ6keusrl5NqZpJ5h5XFPzNRIB_u2iSZ8Mxi2OlmcrKaLJOebtYjBGcDkhMTFTkJbDSokKYtg_EMjW1mWVA"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/appointments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"appointments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "appointments - create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NDc2MTE5MDcsImV4cCI6MTc0NzYxNTUwNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.Y4LFEpOoT6pmElJRWlr4xZqEt9JDmI5UUksS4D9bsi7R-7_u1oP2cJUZBVFl7lrpMipIDN0gh3-tjZ4ZjiPyqCmmkAmhi-522l4MsQbSUF4IbuJkzrSzbclp99ea1FvpEsBFUIDhW0LSzYCy3FxHs9_X_b_zQPHbHeeu4Gw9jiY1Wd2sxNDLIkgjv2IbHmNEqrk1ScqjJiDBeDlSl7bdgxxACmsvvBxUmgjBhslJmTgcmDBl9Bwi4nzBfzl99ecis5eGOZyBg9ItYqSRRM_xeodDNUzF_-9xWGhslNTyAuekwN9ASA6hrJVE6EDj6cAhQdENa4C-BmdCa22mbcUHJw"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"meeting1\",\n    \"start_time\": \"2025-01-01 00:00:00\", \n    \"end_time\":  \"2025-01-01 02:00:00\", \n    \"participant_id\" : 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/appointments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"appointments"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
