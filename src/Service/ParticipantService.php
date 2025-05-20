@@ -5,26 +5,17 @@ namespace App\Service;
 use App\Dto\ParticipantData;
 use App\Entity\Participant;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class ParticipantService
 {
     public function __construct(
         private readonly EntityManagerInterface $em,
-        private readonly ValidatorInterface $validator
+        private readonly ValidatorService $validator
     ) {}
 
     public function create(ParticipantData $data): Participant
     {
-        $errors = $this->validator->validate($data);
-        if (count($errors) > 0) {
-            $errorMessages = [];
-            foreach ($errors as $error) {
-                $errorMessages[$error->getPropertyPath()] = $error->getMessage();
-            }
-            throw new BadRequestHttpException(json_encode($errorMessages));
-        }
+        $this->validator->validate($data);
 
         return $this->em->getRepository(Participant::class)->createAndSave($data);
     }
@@ -43,5 +34,14 @@ class ParticipantService
         }
 
         return $data;
+    }
+
+    public function get(Participant $participant): array
+    {
+        return [
+            'id' => $participant->getId(),
+            'name' => $participant->getName(),
+            'email' => $participant->getEmail(),
+        ];
     }
 }

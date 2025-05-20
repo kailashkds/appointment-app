@@ -12,25 +12,17 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class AppointmentService
 {
     public function __construct(
         private EntityManagerInterface $em,
-        private readonly ValidatorInterface $validator
+        private readonly ValidatorService $validator
     ) {}
 
     public function create(AppointmentData $data): Appointment
     {
-        $errors = $this->validator->validate($data);
-        if (count($errors) > 0) {
-            $errorMessages = [];
-            foreach ($errors as $error) {
-                $errorMessages[$error->getPropertyPath()] = $error->getMessage();
-            }
-            throw new BadRequestHttpException(json_encode($errorMessages));
-        }
+        $this->validator->validate($data);
 
         $participant = $this->em->getRepository(Participant::class)->find($data->participant_id);
         if (!$participant) {
@@ -69,5 +61,46 @@ class AppointmentService
         }
 
         return $data;
+    }
+
+    public function get(Appointment $appointment): array
+    {
+        return [
+            'id' => $appointment->getId(),
+            'title' => $appointment->getTitle(),
+            'start_time' => $appointment->getStartTime()->format('Y-m-d H:i:s'),
+            'end_time' => $appointment->getEndTime()->format('Y-m-d H:i:s'),
+            'participant' => [
+                'id' => $appointment->getParticipant()->getId(),
+                'name' => $appointment->getParticipant()->getName(),
+                'email' => $appointment->getParticipant()->getEmail(),
+            ],
+        ];
+    }
+
+    public function delete(Appointment $appointment): array
+    {
+        $this->em->remove($appointment);
+        $this->em->flush();
+        return ['message' => 'Appointment deleted'];
+    }
+
+    public function update(Appointment $appointment, AppointmentData $data): Appointment
+    {
+        $this->validator->validate($data);
+
+        /** @var AppointmentRepository $repo */
+        $repo = $this->em->getRepository(Appointment::class);
+        $participant = $this->em->getRepository(Participant::class)->find($data->participant_id);
+
+        $start = new \DateTime($data->start_time);
+        $end = new \DateTime($data->end_time);
+
+        // Check for overlapping, but ignore the current appointment being updated
+        if ($repo->hasOverlap($participant, $start, $end, $appointment->getId())) {
+            throw new BadRequestHttpException(json_encode(['error' => 'Appointment overlaps with an existing one']));
+        }
+
+        return $repo->update($appointment, $data->title, $start, $end, $participant);
     }
 }

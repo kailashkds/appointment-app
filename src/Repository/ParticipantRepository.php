@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Dto\ParticipantData;
+use App\Entity\Appointment;
 use App\Entity\Participant;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

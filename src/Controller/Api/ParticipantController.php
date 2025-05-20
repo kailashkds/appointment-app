@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Api;
 
 use App\DTO\ParticipantData;
+use App\Entity\Participant;
 use App\Service\ParticipantService;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/api')]
@@ -30,5 +31,11 @@ class ParticipantController extends AbstractController
     public function list(ParticipantService $participantService): JsonResponse
     {
         return $this->json($participantService->list());
+    }
+
+    #[Route('/participants/{id}', name: 'get_participants', methods: ['GET'])]
+    public function get(Participant $participant, ParticipantService $participantService): JsonResponse
+    {
+        return $this->json($participantService->get($participant));
     }
 }
