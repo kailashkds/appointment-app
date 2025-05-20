@@ -18,13 +18,9 @@ class ParticipantRepository extends ServiceEntityRepository
         parent::__construct($registry, Participant::class);
     }
 
-    public function createAndSave(ParticipantData $data): Participant
+    public function createAndSave(Participant $participant): Participant
     {
         $em = $this->getEntityManager();
-        $participant = new Participant();
-        $participant->setName($data->name);
-        $participant->setEmail($data->email);
-
         $em->persist($participant);
         $em->flush();
 

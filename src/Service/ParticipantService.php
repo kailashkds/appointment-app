@@ -17,7 +17,12 @@ class ParticipantService
     {
         $this->validator->validate($data);
 
-        return $this->em->getRepository(Participant::class)->createAndSave($data);
+        $participant = new Participant();
+        $participant->setName($data->name);
+        $participant->setEmail($data->email);
+        $this->validator->validate($participant);
+
+        return $this->em->getRepository(Participant::class)->createAndSave($participant);
     }
 
     public function list(): array

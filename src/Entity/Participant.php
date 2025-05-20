@@ -6,8 +6,10 @@ use App\Repository\ParticipantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
+#[UniqueEntity(fields: ['email'], message: 'This email is already used.')]
 #[ORM\Entity(repositoryClass: ParticipantRepository::class)]
 class Participant
 {
@@ -27,9 +29,9 @@ class Participant
     #[ORM\OneToMany(targetEntity: Appointment::class, mappedBy: 'participantId')]
     private Collection $appointments;
 
-    #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     #[Assert\Email]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
 
     public function __construct()
